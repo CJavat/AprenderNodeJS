@@ -1,0 +1,29 @@
+{
+  "name": "aprendernodejs",
+  "version": "1.0.0",
+  "description": "Un curso de NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "desarrollo": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CJavat/AprenderNodeJS.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "español",
+    "curso"
+  ],
+  "author": "CJavat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CJavat/AprenderNodeJS/issues"
+  },
+  "homepage": "https://github.com/CJavat/AprenderNodeJS#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mysql": "^2.18.1"
+  }
+}
