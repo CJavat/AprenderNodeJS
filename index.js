@@ -153,7 +153,82 @@ const fs = require('fs');
 // npm init --> Crea un archivo package.json
 // npm init --yes --> Crea un archivo package.json con todos los valores por defecto.
 
-/* JSON */
+/* EVENTS EMITTERS */
+/* const EventEmitter = require('events');
+//console.log(EventEmitter);
+const emisorProductos = new EventEmitter(); */
+
+/* EVENT HANDLERS */
+/* emisorProductos.on('compra', (total, numeroProductos) => { // Está esperando a que se emita el evento para dispararse la función.
+    //console.log("Se realizó una compra.");
+    console.log(`Se realizó una compra por $${total} pesos mexicanos.`);
+    console.log(`Por haber comprado ${numeroProductos} productos.`);
+});
+
+//emisorProductos.emit('compra'); // Emitir el evento para que se disparé el .on().
+emisorProductos.emit('compra', 500, 5); // Emitir el evento para que se disparé el .on(). */
+
+/* PROMESAS */
+/* const promesaCumplida = false;
+
+const miPromesa = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        if(promesaCumplida) resolve("Promesa Cumplida.");
+        else reject("Promesa Rechazada.");
+    }, 1000);
+});
+
+//miPromesa.then((valor) => {
+//    console.log(valor);
+//});
+
+const manejarPromesaCumplida = (valor) => {
+    console.log(valor);
+}
+
+const manejarPromesaRechazada = razonRechazo => {
+    console.log(razonRechazo)
+}
+
+miPromesa.then(manejarPromesaCumplida, manejarPromesaRechazada);
+
+console.log("Hola mundo"); */
+
+/* PRÁCTICA PROMESAS */
+/* const estatusPedido = () => {
+    const estatus = Math.random() < 0.5;
+    return estatus;
+}
+
+const miPedidoPizza = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        if(estatusPedido()) resolve("Pedido exitoso, la comida va en camino.");
+        else reject("Ocurrió un error. Por favor, intenta nuevamente.");
+    }, 3000);
+});
+
+const pedidoExitoso = (mensajeDeConfirmacion) => {
+    console.log(mensajeDeConfirmacion);
+}
+
+const pedidoRechazado = (mensajeDeRechazo) => {
+    console.log(mensajeDeRechazo);
+}
+
+//miPedidoPizza.then(pedidoExitoso, pedidoRechazado);
+
+
+miPedidoPizza
+    .then((mensajeDeConfirmacion) => {
+        console.log(mensajeDeConfirmacion);
+    })
+    .then(null, (mensajeDeRechazo) => {
+        console.log(mensajeDeRechazo);
+    }); */
+
+/* CATCH */
+
+
 
 
 

@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/CJavat/AprenderNodeJS#readme",
   "dependencies": {
-    "express": "^4.18.1",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
     "mysql": "^2.18.1"
   }
 }
