@@ -37,3 +37,45 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:9090/api/cursos/programacion/1
+
+###
+// POST --> AGREGAR
+POST http://localhost:9090/api/cursos/matematicas
+Content-Type: application/json
+
+{
+    "id": 3,
+    "titulo": "calculo avanzado",
+    "lenguaje": "calculo",
+    "vistas": 1,
+    "nivel": "avanzado"
+}
+
+###
+
+// PUT --> ACTUALIZAR
+PUT http://localhost:9090/api/cursos/matematicas/1 
+Content-Type: application/json
+
+{
+    "id": 1,
+    "titulo": "aprende algebra 2",
+    "lenguaje": "algebra",
+    "vistas": 15000,
+    "nivel": "intermedio"
+}
+
+###
+
+PATCH http://localhost:9090/api/cursos/matematicas/1 
+Content-Type: application/json
+
+{
+    "titulo": "aprende calculo 2",
+    "lenguaje": "algebra",
+    "vistas": 9900
+}
+
+###
+
+DELETE http://localhost:9090/api/cursos/matematicas/1
