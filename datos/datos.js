@@ -39,3 +39,5 @@ let infoCursos = {
         }
     ]
 }
+
+module.exports.infoCursos = infoCursos;

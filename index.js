@@ -462,6 +462,7 @@ servidor.listen(PUERTO, () => {
 //? Sirve para que se actualicen los cambios del servidor sin tener que cerrar el servidor y volverlo activar.
 //? para instalarlo se debe de escribir:
 /! npm install -g nodemon */
+const { application } = require("express");
 //? Y para ejecutarlo es: nodemon app.js (Lo único que cambia es el node app.js)*/
 
 //! EXPRESS */
@@ -492,12 +493,12 @@ servidor.listen(PUERTO, () => {
 // });
 
 //! PARÁMETROS DE RUTAS CON EXPRESS */
-const express = require('express');
+/* const express = require('express');
 const { infoCursos } = require('./cursos.js');
 
 const app = express();
 
-// CURSOS DE PROGRAMACION.
+//* CURSOS DE PROGRAMACION.
 
 app.get('/api/cursos/programacion/:lenguaje', (req, res) => { //? Para hacer una ruta dinámica.
     const lenguaje = req.params.lenguaje;
@@ -509,7 +510,21 @@ app.get('/api/cursos/programacion/:lenguaje', (req, res) => { //? Para hacer una
     res.send(JSON.stringify(resultados));
 });
 
-// CURSOS DE MATEMÁTICAS.
+app.get('/api/cursos/programacion/:lenguaje/:nivel', (req, res) => {
+    const lenguaje = req.params.lenguaje;
+    const nivel = req.params.nivel;
+
+    const resultados = infoCursos.programacion.filter(curso => curso.lenguaje === lenguaje && curso.nivel === nivel);
+
+    if(resultados.length === 0) {
+        return res.status(404).send(`No se encontraron cursos de ${lenguaje} de nivel ${nivel}`);
+    }
+
+    res.send(JSON.stringify(resultados));
+
+});
+
+//* CURSOS DE MATEMÁTICAS.
 app.get('/api/cursos/matematicas/:tema', (req, res) => { //? Para hacer una ruta dinámica.
     const tema = req.params.tema;
     const resultados = infoCursos.matemanticas.filter(cursos => cursos.lenguaje === tema);
@@ -524,35 +539,120 @@ const PORT = process.env.PORT || 9090; //? process.env.PORT --> Es para obtener 
 
 app.listen(PORT, () => {
     console.log("El servidor esta escuchando en el puerto " + PORT + "...");
+}); */
+
+//! PARÁMETROS QUERY */
+// const express = require("express");
+// const { infoCursos } = require('./cursos.js');
+// const app = express();
+
+// app.get('/api/cursos/programacion/:lenguaje', (req, res) => {
+//     const lenguaje = req.params.lenguaje;
+//     const nivel = req.params.nivel;
+
+//     const resultados = infoCursos.programacion.filter(cursos => cursos.lenguaje === lenguaje);
+
+//     if(resultados.length === 0) {
+//         return res.status(404).send(`No se encontraron cursos de ${lenguaje} del nivel ${nivel}`);
+//     }
+
+//     if(req.query.ordenar == 'vistas') {
+//         return res.send(JSON.stringify(resultados.sort((a, b) => b.vistas - a.vistas)));
+//     }
+
+//     res.send(JSON.stringify(resultados));
+
+// });
+
+// const PORT = process.env.PORT || 9090;
+
+// app.listen(PORT, () => {
+//     console.log(`El servidor está escuchando por el puerto ${PORT}...`);
+// })
+
+//! ROUTERS EN EXPRESS */
+// const express = require('express');
+// const app = express();
+// const { infoCursos } = require('./cursos');
+
+// // ROUTERS
+// const routerProgramacion = express.Router();
+// const routerMatematicas = express.Router();
+// app.use('/api/cursos/programacion', routerProgramacion);
+// app.use('/api/cursos/matematicas', routerMatematicas);
+
+// //* PATH PROGRAMACIÓN.
+// routerProgramacion.get('/', (req, res) => {
+//     res.send(JSON.stringify(infoCursos.programacion));
+// });
+
+// routerProgramacion.get('/:lenguaje', (req, res) => {
+//     const lenguaje = req.params.lenguaje;
+//     const resultado = infoCursos.programacion.filter(cursos => cursos.lenguaje === lenguaje);
+
+//     if(resultado.length === 0) {
+//         return res.status(404).send(`El lenguaje ${lenguaje} que estás buscando no se ha encontrado.`);
+//     }
+
+//     res.send(JSON.stringify(resultado));
+// });
+
+// routerProgramacion.get('/:lenguaje/:nivel', (req, res) => {
+//     const lenguaje = req.params.lenguaje;
+//     const nivel = req.params.nivel;
+//     const resultado = infoCursos.programacion.filter(cursos => cursos.lenguaje === lenguaje && cursos.nivel === nivel);
+
+//     if(resultado.length === 0) {
+//         return res.status(404).send(`El lenguaje ${lenguaje} con el nivel ${nivel} que estás buscando no se ha encontrado.`);
+//     }
+// });
+
+// //* PATH MATEMÁTICAS.
+// routerMatematicas.get('/', (req, res) => {
+//     res.send(JSON.stringify(infoCursos.matemanticas));
+// });
+
+// routerMatematicas.get('/:lenguaje', (req, res) => {
+//     const lenguaje = req.params.lenguaje;
+//     const resultado = infoCursos.matemanticas.filter(cursos => cursos.lenguaje === lenguaje);
+
+//     if(resultado.length === 0) return res.status(404).send(`El tema ${lenguaje} no ha sido encontrado.`);
+
+//     res.send(JSON.stringify(resultado));
+// });
+
+// const PORT = process.env.PORT || 9090;
+// app.listen(PORT, () => {
+//     console.log(`El servidor está escuchando en el puerto ${PORT}`);
+// });
+
+//! ROUTERS EN DISTINTOS ARCHIVOS */
+const express = require('express');
+const app = express();
+
+const { infoCursos } = require('./datos/datos.js');
+
+const routerMatematicas = require('./routers/path-matematicas.js');
+const routerProgramacion = require('./routers/path-programacion.js');
+
+
+app.use('/api/cursos/matematicas', routerMatematicas);
+app.use('/api/cursos/programacion', routerProgramacion);
+
+app.get('/', (req, res) => {
+    res.send('Mi primer servidor con Express.');
 });
 
+app.get('/api/cursos', (req, res) => {
+    res.send(JSON.stringify(infoCursos));
+});
 
+const PORT = process.env.PORT || 9090;
+app.listen(PORT, () => {
+    console.log(`El servidor está escuchando en el puerto ${PORT}`);
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//! POST, PUT, PATCH y DELETE */
 
 
 
