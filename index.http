@@ -1,0 +1,6 @@
+POST  http://localhost:9090/cursos/matematicas
+Content-Type: application/json
+
+{
+    "titulo" : "Aprender Node.js"
+}
