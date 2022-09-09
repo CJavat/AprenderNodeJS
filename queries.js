@@ -29,6 +29,7 @@ connection.connect(err => {
     }
     console.log('conectado con el id' + connection.threadId);
 });
+
 connection.query('SELECT * FROM usuarios', (error, results, fields) => {
     //console.log(error);
     console.log(results);
