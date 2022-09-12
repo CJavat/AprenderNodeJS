@@ -2,10 +2,12 @@ const express = require('express');
 const morgan = require('morgan');
 const app = express();
 
+app.use('/holamundo', express.static('public')); // PÁGINAS ESTÁTICAS.
+
 //! MIDDLEWARE */ // Siempre tienen que estar antes de las rutas para que funcione correctamente.
 /* app.use((req, res, next) => {
     console.log(req.url)
-    next();
+    next();ss
 })
 
 app.use((req, res, next) => {
